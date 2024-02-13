@@ -1,21 +1,24 @@
-import { currencySlice } from "@/interface/interfaceApiRest";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { config } from '@/config/config';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+export type Indicator = {
+  codigo: string;
+  nombre: string;
+}
+const baseUrl = config.HTTPS.URL_BASE_BACK;
 
-export const currencyApi = createApi({
-    reducerPath: 'currencyAPI',
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'https://umusk4hnac.execute-api.us-east-1.amazonaws.com/'
+export const indicatorsApi = createApi({
+  reducerPath: 'indicatorsAPI',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:4000/'
+  }),
+  endpoints: (builder) => ({
+    getInidcators: builder.query<Indicator[], null>({
+      query: () => ''
     }),
-    endpoints: (builder) => ({
-        getCurrencys: builder.query<currencySlice[],null>({
-            query: () => 'indicadores'
-        }),
-        getCurrencyById: builder.query<currencySlice,{codigo:string}>({
-            query: ({codigo}) => `indicadores/${codigo}`
-        })
-
+    getInidcatorsById: builder.query<Indicator, { codigo: string }> ({
+      query: ({ codigo }) => `/${codigo}`
     })
-})
+  })}
+)
 
-const {useGet}=currencyApi
-
+export const {useGetInidcatorsQuery, useGetInidcatorsByIdQuery }= indicatorsApi

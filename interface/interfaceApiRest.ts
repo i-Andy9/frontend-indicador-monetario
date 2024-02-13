@@ -1,9 +1,9 @@
-export interface currencySlice {
+export interface IndicatorSlice {
   codigo: string;
   nombre: string;
 }
 
-export interface dataCurrency {
+export interface dataIndicator {
   valor: number;
   unidad: string;
 }
